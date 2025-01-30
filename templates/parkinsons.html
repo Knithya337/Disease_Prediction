@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parkinson's Disease Prediction</title>
+    <style>
+        body {
+            text-align: center;
+            background-image: url('https://www.gaucherdisease.org/wp-content/uploads/2021/03/helix.jpg');
+            background-size: cover;
+            font-family: sans-serif;
+            color: #f0f0f0;
+        }
+        h2 {
+            font-size: 28px;
+            padding-top: 10px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            margin: 0 auto; /* Center align the table */
+        }
+        table td {
+            padding: 6px;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: blue;
+        }
+        .result {
+            font-size: 28px;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #FF5733;
+        }
+        .positive {
+            color: red;
+        }
+        .negative {
+            color: green;
+        }
+        .back-button {
+            margin-top: 10px;
+            margin-left: 10px;
+            float: center; /* Align the button to the right */
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".back-button").addEventListener("click", function() {
+                window.location.href = '/';
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Parkinson's Disease Prediction</h2>
+    <form method="POST" action="/parkinsons">
+        <table>
+            <tr>
+                <td><label for="fo">MDVP:Fo(Hz):</label></td>
+                <td><input type="text" name="fo"></td>
+                <td><label for="fhi">MDVP:Fhi(Hz):</label></td>
+                <td><input type="text" name="fhi"></td>
+            </tr>
+            <tr>
+                <td><label for="flo">MDVP:Flo(Hz):</label></td>
+                <td><input type="text" name="flo"></td>
+                <td><label for="Jitter_percent">MDVP:Jitter(%):</label></td>
+                <td><input type="text" name="Jitter_percent"></td>
+            </tr>
+            <tr>
+                <td><label for="Jitter_Abs">MDVP:Jitter(Abs):</label></td>
+                <td><input type="text" name="Jitter_Abs"></td>
+                <td><label for="RAP">MDVP:RAP:</label></td>
+                <td><input type="text" name="RAP"></td>
+            </tr>
+            <!-- Add the rest of the form fields here -->
+             <tr>
+                <td><label for="PPQ">MDVP:PPQ:</label></td>
+                <td><input type="text" name="PPQ"></td>
+                <td><label for="DDP">MDVP:DDP:</label></td>
+                <td><input type="text" name="DDP"></td>
+            </tr>
+             <tr>
+                <td><label for="Shimmer">MDVP:Shimmer:</label></td>
+                <td><input type="text" name="Shimmer"></td>
+                <td><label for="Shimmer_dB">MDVP:Shimmer(dB):</label></td>
+                <td><input type="text" name="Shimmer_dB"></td>
+            </tr>
+             <tr>
+                <td><label for="APQ3">Shimmer:APQ3:</label></td>
+                <td><input type="text" name="APQ3"></td>
+                <td><label for="APQ5">Shimmer:APQ5:</label></td>
+                <td><input type="text" name="APQ5"></td>
+            </tr>
+            <tr>
+                <td><label for="APQ">MDVP:APQ:</label></td>
+                <td><input type="text" name="APQ"></td>
+                <td><label for="DDA">Shimmer:DDA:</label></td>
+                <td><input type="text" name="DDA"></td>
+            </tr>
+            <tr>
+                <td><label for="NHR">NHR:</label></td>
+                <td><input type="text" name="NHR"></td>
+                <td><label for="HNR">HNR:</label></td>
+                <td><input type="text" name="HNR"></td>
+            </tr>
+            <tr>
+                <td><label for="RPDE">RPDE:</label></td>
+                <td><input type="text" name="RPDE"></td>
+                <td><label for="DFA">DFA:</label></td>
+                <td><input type="text" name="DFA"></td>
+            </tr>
+            <tr>
+                <td><label for="spread1">spread1:</label></td>
+                <td><input type="text" name="spread1"></td>
+                <td><label for="spread2">spread2:</label></td>
+                <td><input type="text" name="spread2"></td>
+            </tr>
+            <tr>
+                <td><label for="D2">D2:</label></td>
+                <td><input type="text" name="D2"></td>
+                <td><label for="PPE">PPE:</label></td>
+                <td><input type="text" name="PPE"></td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <button type="submit" name="submit">Predict</button>
+
+
+                </td>
+            </tr>
+        </table>
+    </form>
+
+  {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% elif parkinsons_diagnosis %}
+    <p class="result {% if parkinsons_diagnosis == 'The person has Parkinson\'s disease' %}positive{% else %}negative{% endif %}">{{ parkinsons_diagnosis }}</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="back-button" onclick="window.location.href='/';">Back</button>
+    </div>
+</body>
+</html>

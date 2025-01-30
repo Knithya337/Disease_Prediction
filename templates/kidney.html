@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kidney Disease Prediction</title>
+    <style>
+        body {
+            text-align: center;
+            background-image: url('https://www.gaucherdisease.org/wp-content/uploads/2021/03/helix.jpg');
+            background-size: cover;
+            font-family: sans-serif;
+            color: #f0f0f0;
+        }
+        h2 {
+            font-size: 28px;
+            padding-top: 10px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            margin: 0 auto; /* Center align the table */
+        }
+        table td {
+            padding: 6px;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: blue;
+        }
+        .result {
+            font-size: 28px;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #FF5733;
+        }
+        .positive {
+            color: red;
+        }
+        .negative {
+            color: green;
+        }
+        .back-button {
+            margin-top: 10px;
+            margin-left: 10px;
+            float: center; /* Align the button to the center */
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".back-button").addEventListener("click", function() {
+                window.location.href = '/';
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Kidney Disease Prediction</h2>
+
+    <form action="/kidney" method="POST">
+        <table>
+            <tr>
+                <td><label for="age">Age:</label></td>
+                <td><input type="text" id="age" name="age"></td>
+                <td><label for="bp">Blood Pressure:</label></td>
+                <td><input type="text" id="bp" name="bp"></td>
+            </tr>
+            <tr>
+                <td><label for="al">Albumin:</label></td>
+                <td><input type="text" id="al" name="al"></td>
+                <td> <label for="su">Sugar:</label></td>
+                <td><input type="text" id="su" name="su"></td>
+            </tr>
+<tr>
+                <td><label for="rbc">Red Blood Cells:</label></td>
+                <td><input type="text" id="rbc" name="rbc"></td>
+                <td> <label for="pc">Pus Cell:</label></td>
+                <td><input type="text" id="pc" name="pc"></td>
+            </tr>
+<tr>
+                <td><label for="pcc">Pus Cell Clumps:</label></td>
+                <td><input type="text" id="pcc" name="pcc"></td>
+                <td> <label for="ba">Bacteria:</label></td>
+                <td><input type="text" id="ba" name="ba"></td>
+            </tr>
+<tr>
+                <td><label for="bgr">Blood Glucose Random:</label></td>
+                <td><input type="text" id="bgr" name="bgr"></td>
+                <td><label for="bu">Blood Urea:</label></td>
+                <td><input type="text" id="bu" name="bu"></td>
+            </tr>
+           <tr>
+                <td><label for="sc">Serum Creatinine:</label></td>
+                <td><input type="text" id="sc" name="sc"></td>
+                <td> <label for="pot">Potassium:</label></td>
+                <td> <input type="text" id="pot" name="pot"></td>
+            </tr>
+<tr>
+                <td><label for="wc">White Blood Cell Count:</label></td>
+                <td> <input type="text" id="wc" name="wc"></td>
+                <td><label for="htn">Hypertension:</label></td>
+                <td> <input type="text" id="htn" name="htn"></td>
+            </tr>
+<tr>
+                <td><label for="dm">Diabetes Mellitus:</label></td>
+                <td> <input type="text" id="dm" name="dm"></td>
+                <td><label for="cad">Coronary Artery Disease:</label></td>
+                <td><input type="text" id="cad" name="cad"></td>
+            </tr>
+<tr>
+                <td><label for="pe">Pedal Edema:</label></td>
+                <td> <input type="text" id="pe" name="pe"></td>
+                <td> <label for="ane">Anemia:</label></td>
+                <td> <input type="text" id="ane" name="ane"></td>
+            </tr>
+
+            <!-- Add the rest of the form fields here -->
+            <tr>
+
+                <td colspan="4">
+                     <button type="submit" name="submit">Predict</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- Display the kidney disease diagnosis if available -->
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% elif kidney_diagnosis %}
+    <p class="result {% if kidney_diagnosis == 'The person has kidney disease' %}positive{% else %}negative{% endif %}">{{ kidney_diagnosis }}</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="back-button" onclick="window.location.href='/';">Back</button>
+    </div>
+</body>
+</html>

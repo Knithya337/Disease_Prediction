@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diabetes Prediction</title>
+    <style>
+        body {
+            text-align: center;
+            background-image: url('https://www.gaucherdisease.org/wp-content/uploads/2021/03/helix.jpg');
+            background-size: cover;
+            font-family: sans-serif;
+            color: #f0f0f0;
+        }
+        h2 {
+            font-size: 28px;
+            padding-top: 20px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+        }
+        table td {
+            padding: 10px;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: blue;
+        }
+        .result {
+           font-size: 28px; /* You can adjust the font size here */
+            margin-top: 10px;
+            font-family:sans-serif; /* Set the desired font family */
+            font-style: italic; /*Set the desired font style */
+            font-weight: bold; /* Set the desired font weight */
+            color: #FF5733; /* Set the desired font color */
+        }
+        .positive {
+            color: red;
+        }
+        .negative {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Diabetes Prediction</h2>
+    <form method="POST" action="/diabetes">
+        <table>
+            <tr>
+                <td><label for="Pregnancies">Number of Pregnancies:</label></td>
+                <td><input type="text" name="Pregnancies"></td>
+            </tr>
+            <tr>
+                <td><label for="Glucose">Glucose Level:</label></td>
+                <td><input type="text" name="Glucose"></td>
+            </tr>
+            <tr>
+                <td><label for="BloodPressure">Blood Pressure value:</label></td>
+                <td><input type="text" name="BloodPressure"></td>
+            </tr>
+            <tr>
+                <td><label for="SkinThickness">Skin Thickness value:</label></td>
+                <td><input type="text" name="SkinThickness"></td>
+            </tr>
+            <tr>
+                <td><label for="Insulin">Insulin Level:</label></td>
+                <td><input type="text" name="Insulin"></td>
+            </tr>
+            <tr>
+                <td><label for="BMI">BMI value:</label></td>
+                <td><input type="text" name="BMI"></td>
+            </tr>
+            <tr>
+                <td><label for="DiabetesPedigreeFunction">Diabetes Pedigree Function value:</label></td>
+                <td><input type="text" name="DiabetesPedigreeFunction"></td>
+            </tr>
+            <tr>
+                <td><label for="Age">Age of the Person:</label></td>
+                <td><input type="text" name="Age"></td>
+            </tr>
+        </table>
+       <br>
+        <button type="submit" name="submit">Predict</button>
+    </form>
+
+    <!-- Display an error message if the form fields are empty or contain invalid input -->
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <p class="result {% if diab_diagnosis == 'The person is diabetic' %}positive{% else %}negative{% endif %}">{{ diab_diagnosis }}</p>
+    <br>
+    <button class="back-button" onclick="window.location.href='/'">Back</button>
+</body>
+</html>
